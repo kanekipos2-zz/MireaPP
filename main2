@@ -1,0 +1,135 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
+float input(char c)
+{
+	cout << "\nВведите  " << c << ": ";
+	float a;
+	cin >> a;
+	return a;
+}
+
+vector<string> split(const string& s, char delim) {
+
+	vector<string> elems;
+
+	stringstream ss;
+
+	ss.str(s);
+
+	string item;
+
+	while (getline(ss, item, delim)) {
+
+		elems.push_back(item);
+
+	}
+
+	return elems;
+
+}
+
+
+
+void fileWrite(string name, string data)
+{
+	ofstream out;
+	out.open("C:\\test\\" + name + ".txt");
+	if (out.is_open())
+	{
+		out << data;
+	}
+	out.close();
+}
+
+string fileRead(string name)
+{
+	string line;
+	string total = "";
+	ifstream in("C:\\test\\" + name + ".txt");
+	if (in.is_open())
+	{
+		while (getline(in, line))
+		{
+			total += line + "\n";
+		}
+	}
+	in.close();
+	return total;
+}
+
+
+int resolveChar(char n)
+{
+	switch (n)
+	{
+	case 'I': return 1;
+	case 'V': return 5;
+	case 'X': return 10;
+	case 'L': return 50;
+	case 'C': return 100;
+	case 'D': return 500;
+	case 'M': return 1000;
+	}
+	cout << "RESOLVE ERR\n\n\n\n\n\n\n\n";
+	return 0;
+}
+
+void n46()
+{
+	string input;
+	cin >> input;
+	char prev = '*';
+	int rslts[30];
+	for (int i = 0; i < 30; i++) rslts[i] = 0;
+	int current = -1;
+	for (char a : input) {
+		if (a != prev) {
+			current++;
+		}
+		rslts[current] += resolveChar(a);
+		prev = a;
+	};
+	int awns = 0;
+	for (int i = 0; i < 29; i++)
+	{
+		if (rslts[i] > rslts[i + 1]) awns += rslts[i];
+		else awns -= rslts[i];
+	}
+	cout << "\n" << awns;
+}
+
+int rcr(int i, int m, int c)
+{
+	int cr = 0;
+	for (int a = 1; a <= i; a++)
+	{
+		cr = (m * cr + a) % c;
+	}
+	return cr;
+}
+
+void n47()
+{
+	cout << rcr(3, 37, 64) << "\n";
+	cout << rcr(13849, 25173, 65537);
+}
+
+
+int main()
+{
+	setlocale(0, "");
+	while (true)
+	{
+		string n;
+		cout << "\nНомер задания: ";
+		cin >> n;
+		if (n == "4.6") n46();
+		if (n == "4.7") n47();
+	}
+}
