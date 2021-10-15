@@ -1,0 +1,256 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
+float input(char c)
+{
+	cout << "\nВведите  " << c << ": ";
+	float a;
+	cin >> a;
+	return a;
+}
+
+vector<string> split(const string& s, char delim) {
+
+	vector<string> elems;
+
+	stringstream ss;
+
+	ss.str(s);
+
+	string item;
+
+	while (getline(ss, item, delim)) {
+
+		elems.push_back(item);
+
+	}
+
+	return elems;
+
+}
+
+
+
+void fileWrite(string name, string data)
+{
+	ofstream out;
+	out.open("C:\\test\\" + name + ".txt");
+	if (out.is_open())
+	{
+		out << data;
+	}
+	out.close();
+}
+
+string fileRead(string name)
+{
+	string line;
+	string total = "";
+	ifstream in("C:\\test\\" + name + ".txt");
+	if (in.is_open())
+	{
+		while (getline(in, line))
+		{
+			total += line + "\n";
+		}
+	}
+	in.close();
+	return total;
+}
+
+
+int resolveChar(char n)
+{
+	switch (n)
+	{
+	case 'I': return 1;
+	case 'V': return 5;
+	case 'X': return 10;
+	case 'L': return 50;
+	case 'C': return 100;
+	case 'D': return 500;
+	case 'M': return 1000;
+	}
+	cout << "RESOLVE ERR\n\n\n\n\n\n\n\n";
+	return 0;
+}
+
+void n46()
+{
+	string input;
+	cin >> input;
+	char prev = '*';
+	int rslts[30];
+	for (int i = 0; i < 30; i++) rslts[i] = 0;
+	int current = -1;
+	for (char a : input) {
+		if (a != prev) {
+			current++;
+		}
+		rslts[current] += resolveChar(a);
+		prev = a;
+	};
+	int awns = 0;
+	for (int i = 0; i < 29; i++)
+	{
+		if (rslts[i] > rslts[i + 1]) awns += rslts[i];
+		else awns -= rslts[i];
+	}
+	cout << "\n" << awns;
+}
+
+int rcr(int prev, int m, int c, int i)
+{
+	return((m * prev + i) % c);
+}
+
+void n47()
+{
+	int S = 0;
+	int i = 0;
+	char c;
+	while (true)
+	{
+		i++;
+		S = rcr(S, 25173, 65537, i);
+		cout << S << "\n";
+		cin.get();
+	}
+}
+
+
+
+void n48()
+{
+	float matrix1[3][4] = { 
+		{5, 2, 0, 10},
+		{3, 5, 2, 5},
+		{20, 0, 0, 0}
+	};
+
+	float matrix2[4][2] = {
+		{1.20, 0.50},
+		{2.80, 0.40},
+		{5.00, 1.00},
+		{2.00, 1.50}
+	};
+
+	float matrixMul[3][2];
+
+	for(int i1 = 0; i1 < 3; i1++)
+		for (int i2 = 0; i2 < 2; i2++)
+		{
+			float tempnum = 0;
+			for (int a = 0; a < 4; a++) tempnum += matrix1[i1][a] * matrix2[a][i2];
+			matrixMul[i1][i2] = tempnum;
+		}
+	cout << "\nРезультат перемножения матриц:\n\n";
+	for (int n1 = 0; n1 < 3; n1++) { for (int n2 = 0; n2 < 2; n2++) cout << matrixMul[n1][n2] << " "; cout << "\n"; }
+	int pMin = 0; float valueMin = 100; int pMax = 4; float valueMax = -1;
+	for (int i = 0; i < 3; i++)
+	{
+		if (matrixMul[i][0] > valueMax) { pMax = i; valueMax = matrixMul[i][0]; }
+		if (matrixMul[i][0] < valueMin) { pMin = i; valueMin = matrixMul[i][0]; }
+	}
+	cout << "\n\nМаксимальную выручку получил продавец #" << pMax+1 << " (" << valueMax << " ед.)";
+	cout << "\nМинимальную выручку получил продавец #" << pMin+1 << " (" << valueMin << " ед.)";
+
+	pMin = 0; valueMin = 100; pMax = 4; valueMax = -1;
+	for (int i = 0; i < 3; i++)
+	{
+		if (matrixMul[i][1] > valueMax) { pMax = i; valueMax = matrixMul[i][1]; }
+		if (matrixMul[i][1] < valueMin) { pMin = i; valueMin = matrixMul[i][1]; }
+	}
+	cout << "\n\nНаибольшие комиссионные получил продавец #" << pMax+1 << " (" << valueMax << " ед.)";
+	cout << "\nНаименьшие комиссионные получил продавец #" << pMin+1 << " (" << valueMin << " ед.)";
+
+	float od = 0; float ok = 0;
+	for (int i = 0; i < 3; i++) { od += matrixMul[i][0]; ok += matrixMul[i][1]; }
+
+	cout << "\n\nВсего продали товаров на " << od << "ед.\nВсего комиссионных получили " << ok << " ед.\n\nВсего прошло " << od + ok << " ед. через руки продавцов.\n\n";
+
+}
+
+int resolveFrom(char charToResolve)
+{
+	switch (charToResolve)
+	{
+	case 'A': return 10;
+	case 'B': return 11;
+	case 'C': return 12;
+	case 'D': return 13;
+	case 'E': return 14;
+	case 'F': return 15;
+	default: return charToResolve - '0';
+	}
+}
+
+int toTen(string n, int ss)
+{
+	int a = 1;
+	int result = 0;
+	for (char c : n)
+	{
+		result += resolveFrom(c) * pow(ss, n.length() - a);
+		a++;
+	}
+	return result;
+}
+
+char resolveTo(int n)
+{
+	switch (n)
+	{
+	case 10: return 'A';
+	case 11: return 'B';
+	case 12: return 'C';
+	case 13: return 'D';
+	case 14: return 'E';
+	case 15: return 'F';
+	default: return n + '0';
+	}
+}
+
+string fromTen(int n, int ss)
+{
+	string result = "";
+	while (n >= ss)
+	{
+		result += resolveTo(n % ss);
+		n /= ss;
+	}
+	result += n+'0';
+	reverse(result.begin(), result.end());
+	return result;
+}
+
+void n49()
+{
+	string inp1;
+	int inp2, inp3;
+	cin >> inp1;
+	cin >> inp2;
+	cin >> inp3;
+	cout << inp1 << "  " << inp2 << "->" << inp3 << "  = " << fromTen(toTen(inp1, inp2), inp3);
+}
+
+
+int main()
+{
+	setlocale(0, "");
+	while (true)
+	{
+		string n;
+		cout << "\nНомер задания: ";
+		cin >> n;
+		if (n == "4.6") n46();
+		if (n == "4.7") n47();
+		if (n == "4.8") n48();
+		if (n == "4.9") n49();
+	}
+}
