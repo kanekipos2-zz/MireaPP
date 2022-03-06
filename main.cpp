@@ -71,6 +71,11 @@ void n32()
 	cout << "\np = " << pow((m * n * 12 - S) / S * 100, 1.0 / n);
 }
 
+void n33()
+{
+	cout << fileRead("test");   // C:/test.txt читает
+}
+
 void n41()
 {
 	fileWrite("4.1", "1 2 3 4 5 6 7 8 9 10");
