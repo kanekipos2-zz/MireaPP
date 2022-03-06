@@ -8,7 +8,7 @@ using namespace std;
 
 float input(char c)
 {
-	cout << "\n������� " << c << ": ";
+	cout << "\nVvedite" << c << ": ";
 	float a;
 	cin >> a;
 	return a;
