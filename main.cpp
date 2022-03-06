@@ -97,22 +97,22 @@ void n42()
 	cout << "\n" << sign(n);
 }
 
-static class �������
+static class sCalc
 {
 public:
-	void ��������������()
+	void square()
 	{
 		float x = input('x');
 		float y = input('y');
 		cout << "\nS = " << x * y;
 	}
-	void ������������()
+	void triangle()
 	{
 		float osn = input('o');
 		float h = input('h');
 		cout << "\nS = " << osn * h / 2;
 	}
-	void �����()
+	void circle()
 	{
 		float r = input('r');
 		cout << "\nS = " << 3.1415926535 * r * r;
@@ -122,11 +122,11 @@ public:
 void n43()
 {
 	int f;
-	cout << "\n������� ���� �����? 0-�� 1-�� 2-��\n";
+	cout << "\n какую площадь считать? 0-квадрата 1-треугольника 2-круга\n";
 	cin >> f;
-	if (f == 0) �������().��������������();
-	if (f == 1) �������().������������();
-	if (f == 2) �������().�����();
+	if (f == 0) sCalc().square();
+	if (f == 1) sCalc().triangle();
+	if (f == 2) sCalc().circle();
 }
 
 void n44()
@@ -172,7 +172,7 @@ int main()
 	while (true)
 	{
 		string n;
-		cout << "\n����� �������: ";
+		cout << "\nВведите номер задания: ";
 		cin >> n;
 		if (n == "3.2") n32();
 		if (n == "3.3") n33();
