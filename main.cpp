@@ -86,7 +86,7 @@ void n41()
 	{
 		sum += stoi(e);
 	}
-	cout << "\n�����: " << sum;
+	cout << "\nСумма: " << sum;
 }
 
 int sign(float n) { return n > 0 ? 1 : n == 0 ? 0 : -1; }
